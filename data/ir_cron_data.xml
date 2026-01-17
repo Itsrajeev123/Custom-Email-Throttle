@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="ir_cron_process_throttled_email_queue" model="ir.cron">
+            <field name="name">Throttled Email Queue Manager</field>
+            <field name="model_id" ref="mail.model_mail_mail"/>
+            <field name="state">code</field>
+
+            <field name="code">model.process_email_queue_throttled()</field>
+
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="active" eval="True"/> 
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+    </data>
+</odoo>
