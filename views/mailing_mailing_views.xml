@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mailing_mailing_form_inherit_throttle" model="ir.ui.view">
+        <field name="name">mailing.mailing.form.inherit.throttle</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Add new tab after Settings -->
+            <xpath expr="//page[@name='settings']" position="after">
+                <page string="Throttle Control" name="throttle_control">
+                    <group>
+                        <group string="Batch Configuration">
+                            <field name="use_throttle" widget="boolean_toggle"/>
+                            <field name="throttle_batch_size"
+                                   invisible="use_throttle == False"
+                                   required="use_throttle == True"/>
+                            <label for="throttle_interval" string="Interval"
+                                   invisible="use_throttle == False"/>
+                            <div invisible="use_throttle == False">
+                                <field name="throttle_interval" class="oe_inline" style="width: 100px !important;"/>
+                                <field name="throttle_interval_type" class="oe_inline" style="margin-left: 8px;"/>
+                            </div>
+                        </group>
+                        <group string="Estimate">
+                            <field name="estimated_completion_time"
+                                   invisible="use_throttle == False"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group string="How it works" invisible="use_throttle == False">
+                        <div class="alert alert-info" role="alert">
+                            <p><strong>Throttled Sending:</strong></p>
+                            <ul>
+                                <li>Emails will be sent in batches instead of all at once</li>
+                                <li>Each batch will be sent after the specified interval</li>
+                                <li>This helps avoid spam filters and server overload</li>
+                                <li>Example: 100 emails, batch size 10, interval 5 min = ~50 minutes total</li>
+                            </ul>
+                        </div>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
